@@ -1,22 +1,12 @@
-function draw() {
-    var canvas = $('canvas')[0];
-    if(canvas.getContext) {
-        var ctx = canvas.getContext('2d');
-        ctx.fillStyle = 'rgb(200, 0, 0)';
-        ctx.fillRect(10, 10, 50, 50);
-        ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
-        ctx.fillRect(30, 30, 50, 50);
-    }
-}
+/*
+VIEW IN FULL MODE :: IT LOOKS MUCH BETTER WHEN VIEWED IN FULL MODE
 
-$(document).ready(function() {
-    // $(document).draw();
-    $('#content').animate({
-        opacity:1,
-        marginTop:'0',
-    }, 800);
-    $('h2').click(function() {
-        $(this).next('.subtext').slideToggle('fast');
-        $(this).children('.hex').toggleClass('moved');
-    })
-});
+
+my intention was to use lettering.js to create the word* classes, but for some reason it didn't generate them even after including the script and calling it, it works locally but not on codepen*/
+
+/*
+
+Librarian Image is from Dribbble: http://dribbble.com/shots/271458-Librarian 
+by talented "Artua"
+
+*/

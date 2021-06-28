@@ -1,64 +1,82 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-    <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'> -->
-    <meta charset="utf-8">
-    <link href='/static/css/demo.css' rel='stylesheet' type='text/css'> 
-    <script defer src="{{ url_for('static', filename='/js/demo.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Share+Tech|Share+Tech+Mono" rel="stylesheet" />
-    <title>Designs by Laighlin</title>
-    
+  <meta charset="utf-8">
+  <link href='/static/css/demo.css' rel='stylesheet' type='text/css'>
 </head>
-
-<body onload="draw()">
-    <canvas id="bg"></canvas>
-    <main id="content">
-        <h1>
-            <div class="hex moved"></div><span>About the Dev</span></h1>
-        <div class="subtext" id="main">
-            <p>{{person.Dev1}}</p>
-            <p>{{person.Dev2}}</p>
-        </div>
-        <h2>
-            <div class="hex"></div><span>Skills</span></h2>
-        <div class="subtext coll">
-            {{person.Skills}}
-        </div>
-        <h2>
-            <div class="hex"></div><span>Hobbies & Interests</span></h2>
-        <div class="subtext coll">
-            {{person.Hobbies}}
-        </div>
-        <h2>
-            <div class="hex"></div><span>Currently Working On</span></h2>
-        <div class="subtext coll">
-            {{person.Working}}
-        </div>
-            
-        <h2>
-            <div class="hex"></div><span>Find Me</span></h2>
-        <div class="subtext coll">
-            <a>{{person.SC1}}</a> | <a>{{person.SC2}}</a> | <a>{{person.SC3}}</a> | <a>{{person.SC4}}</a>
-        </div>
-        
-        <h2>
-            <div class="hex"></div><span>Contact Me</span></h2>
-        <div class="subtext coll">
-            <ul>
-                <li>{{person.Contact1}}</li>
-                <li>{{person.Contact2}}</li>
-                <li>{{person.Contact3}}</li>
-            </ul>
-        </div>
-    </main>
-    <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="wave" id="one"><path d="M-13.36,88.98 C168.85,182.73 276.72,-73.84 506.31,79.10 L500.00,150.00 L0.00,150.00 Z"></path></svg>
-    <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="wave" id="two"><path d="M-13.36,88.98 C168.85,182.73 276.72,-73.84 506.31,79.10 L500.00,150.00 L0.00,150.00 Z"></path></svg>
-    <div id="hex-holder">
-        <div class="hex" id="uno"></div>
-        <div class="hex" id="dos"></div>
-        <div class="hex" id="tres"></div>
-    </div>
+<body>
+<div class="container">
+  <div class="word_split wrapper">
+  <span class="word word1"> Qichuan </span>
+  <span class="word word2">Zhou</span>
+  <span class="word word3">Personal</span>
+  <span class="word word4">Details</span>
+  <span class="word word5">Employment</span>
+  <span class="word word6">History </span>
+  <span class="word word7">Education</span>
+  <span class="word word8">Personal</span>
+  <span class="word word9">Skills </span>
+  <span class="word word10">Technical</span>
+  <span class="word word11">Skills </span>
+  <span class="word word12">Get In </span>
+  <span class="word word13">Touch</span>
+    
+    <div class="bubble1">
+     <span class="the-arrow1"></span>
+      你好! <br/> 我是..
+   </div>
+  <div class="bubble2">
+     <span class="the-arrow2"></span>
+    <img src="\static\img\1.jpg"/>
+   </div>
+  <div class="bubble3">
+     <span class="the-arrow3"></span>
+    {{person.detail1}}<br/>
+    {{person.detail2}}<br/>
+    {{person.detail3}}<br/>
+    {{person.detail4}}<br/>
+    {{person.detail5}}<br/>
+   </div>
+  <div class="bubble4">
+     <span class="the-arrow4"></span>
+    {{person.history1}}<br/>
+    {{person.history2}}<br/><br/>
+    {{person.history3}}
+    <br/>
+    
+   </div>
+  <div class="bubble5">
+     <span class="the-arrow5"></span>
+    {{person.education1}}<br/>
+    {{person.education2}}<br/>
+    {{person.education3}}<br/><br/>
+    {{person.education4}}<br/>
+    {{person.education5}}<br/>
+    {{person.education6}}
+    
+   </div>
+  <div class="bubble6">
+     <span class="the-arrow6"></span>
+    {{person.skill1}}<br/>
+    {{person.skill2}}<br/>
+    {{person.skill3}}<br/>
+    {{person.skill4}}<br/>
+    {{person.skill5}}<br/>
+   </div>
+  <div class="bubble7">
+     <span class="the-arrow7"></span>
+    {{person.technic1}}<br/>
+    {{person.technic2}}<br/>
+    {{person.technic3}}<br/>
+   </div>
+  <div class="bubble8">
+     <span class="the-arrow8"></span>
+    {{person.contact1}}<br/>
+    {{person.contact2}}<br/>
+    {{person.contact3}}<br/>
+   </div>   
+   <p><a href="{{url_for('chart')}}" target="_blank">近期作品1</a></p>
+</div>
+</div><!--end container-->
 </body>
-
-</html>
+</html>>

@@ -3,29 +3,42 @@ from flask import Flask, render_template, request
 import pandas as pd
 import json
 import plotly
-import plotly.express as px
-
 import csv, re, operator
-# from textblob import TextBlob
+import plotly.graph_objs as go
+import numpy as np
+import plotly_express as px
 
 app = Flask(__name__)
-
+gapminder = px.data.gapminder()
+iris = px.data.iris()
 person = {
     'first_name': 'Zhou',
     'last_name' : 'Qichuan',
-    'Dev1':'My name is zhou qichuan.I come from China.I am a college student in hubei nomal university.I am good at baseketball and table tennis.',
-    'Dev2':'I wanted to be an athlete for most of my life,because being a athlete is very glomous.I can find happiness from sprots and sprots can make me strong and healthy.',
-    'Skills':'I am good at programing.',
-    'Hobbies':'Small indie coding projects (semi-professionally). Music (unprofessionally). surfing online  (clumsily). Cooking (hungrily).',
-    'address' : '9 rue Léon Giraud · PARIS · FRANCE',
-    'Working':'An accessibility app for Android, a couple of desktop themes for a blogging platform I casually use, and a photography project detailing the interplay of natural and artifical in urban environments.',
-    'SC1':'Twitter',
-    'SC2':'Tumblr',
-    'SC3':'Codepen',
-    'SC4':'Behance',
-    'Contact1':'Phone: +183 7342 7083',
-    'Contact2':'E-mail: 131415@gmail.com',
-    'Contact3':'Discord:lajdkjq',
+    'detail1':'国籍：China',
+    'detail2':'住址：湖南省',
+    'detail3':'生日：2001 09 01',
+    'detail4':'爱好：篮球，跑步',
+    'detail5':'性别：男',
+    'history1':'java初级工程师',
+    'history2':'毕业于湖北师范大学',
+    'history3':'有三年的编程经验',
+    'education1':'高中',
+    'education2':'毕业时间',
+    'education3':'2018 06 12',
+    'education4':'大学',
+    'education5':'毕业时间',
+    'education6':'2020 06 20',
+    'skill1':'协作',
+    'skill2':'创意',
+    'skill3':'组织',
+    'skill4':'社交',
+    'skill5':'管理',
+    'technic1':'编程',
+    'technic2':'算法',
+    'technic3':'精通数学',
+    'contact1':'e-mail:2879657430@qq.com',
+    'contact2':'tel:19084562785',
+    'contact3':'wechat:18765349083',
     'job': 'Collegy student',
     'tel': '1314980',
     'email': '131415zq@gmail.com',
@@ -112,24 +125,156 @@ def cv(person=person):
     return render_template('resume.html', person=person)
 
 
-
-
 @app.route('/callback', methods=['POST', 'GET'])
 def cb():
 	return gm(request.args.get('data'))
-   
+
+
 @app.route('/chart')
-def index():
-	return render_template('chartsajax.html',  graphJSON=gm())
 
-def gm(country='United Kingdom'):
-	df = pd.DataFrame(px.data.gapminder())
+def chart():
+    return render_template('chartsajax.html',graphJSON=line(),graphJSON1=area()
+    ,graphJSON2=scatter(),graphJSON3=choropleth(),graphJSON4=scatter_geo1(),graphJSON5=scatter_geo2()
+    ,graphJSON6=line_geo(),graphJSON7=scatter1(),graphJSON8=parallel_coordinates()
+    ,graphJSON9=density_contour(),graphJSON10=density_heatmap()
+    )
+# def gm(country='United Kingdom'):
+#     df = pd.DataFrame(px.data.gapminder())
 
-	fig = px.line(df[df['country']==country], x="year", y="gdpPercap")
+#     fig = px.line(df[df['country']==country], x="year", y="gdpPercap")
+#     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+#     return graphJSON
 
-	graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-	return graphJSON
+def line():
+    # line 图
+    fig = px.line(
+    gapminder,  # 数据集
+    x="year",  # 横坐标
+    y="lifeExp",  # 纵坐标
+    color="continent",  # 颜色的数据
+    line_group="continent",  # 线性分组
+    hover_name="country",   # 悬停hover的数据
+    line_shape="spline",  # 线的形状
+    render_mode="svg"  # 生成的图片模式
+    )
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON
 
+def area():
+        # area 图
+    fig = px.area(
+    gapminder,  # 数据集
+    x="year",  # 横坐标
+    y="pop",  # 纵坐标
+    color="continent",   # 颜色
+    line_group="country"  # 线性组别
+    )
+    graphJSON1 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON1
+
+def scatter():
+    fig=px.scatter(
+    gapminder   # 绘图DataFrame数据集
+    ,x="gdpPercap"  # 横坐标
+    ,y="lifeExp"  # 纵坐标
+    ,color="continent"  # 区分颜色
+    ,size="pop"   # 区分圆的大小
+    ,size_max=60  # 散点大小
+    )
+    graphJSON2 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON2
+
+def choropleth():
+    fig=px.choropleth(
+    gapminder,  # 数据集
+    locations="iso_alpha",  # 配合颜色color显示
+    color="lifeExp", # 颜色的字段选择
+    hover_name="country",  # 悬停字段名字
+    animation_frame="year",  # 注释
+    color_continuous_scale=px.colors.sequential.Plasma,  # 颜色变化
+    projection="natural earth"  # 全球地图
+                      )
+    graphJSON3 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON3
+
+def scatter_geo1():
+    fig = px.scatter_geo(
+    gapminder,   # 数据
+    locations="iso_alpha",  # 配合颜色color显示
+    color="continent", # 颜色
+    hover_name="country", # 悬停数据
+    size="pop",  # 大小
+    animation_frame="year",  # 数据帧的选择
+    projection="natural earth"  # 全球地图
+                        )
+    graphJSON4 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON4
+
+def scatter_geo2():
+    fig=px.scatter_geo(
+    gapminder, # 数据集
+    locations="iso_alpha",  # 配和color显示颜色
+    color="continent",  # 颜色的字段显示
+    hover_name="country",  # 悬停数据
+    size="pop",  # 大小
+    animation_frame="year"  # 数据联动变化的选择
+    #,projection="natural earth"   # 去掉projection参数
+    )
+    graphJSON5 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON5
+
+def line_geo():
+    fig = px.line_geo(
+    gapminder,  # 数据集
+    locations="iso_alpha",  # 配合和color显示数据
+    color="continent",  # 颜色
+    projection="orthographic")   # 球形的地图
+    graphJSON6 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON6
+
+def scatter1():
+    fig = px.scatter(
+    iris,  # 数据集
+    x="sepal_width",  # 横坐标
+    y="sepal_length",  # 纵坐标
+    color="species"  )
+    graphJSON7 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON7
+
+def parallel_coordinates():
+    fig=px.parallel_coordinates(
+    iris,   # 数据集
+    color="species_id",  # 颜色
+    labels={"species_id":"Species",  # 各种标签值
+          "sepal_width":"Sepal Width",
+          "sepal_length":"Sepal Length",
+          "petal_length":"Petal Length",
+          "petal_width":"Petal Width"},
+    color_continuous_scale=px.colors.diverging.Tealrose,
+    color_continuous_midpoint=2)
+    graphJSON8 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON8
+
+def density_contour():
+    fig=px.density_contour(
+    iris,  # 绘图数据集
+    x="sepal_width",  # 横坐标
+    y="sepal_length",  # 纵坐标值
+    color="species"  # 颜色
+    )
+    graphJSON9 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON9
+
+def density_heatmap():
+    fig=px.density_heatmap(
+    iris,  # 数据集
+    x="sepal_width",   # 横坐标值
+    y="sepal_length",  # 纵坐标值
+    marginal_y="rug",  # 纵坐标值为线型图
+    marginal_x="histogram"  # 直方图
+                  )
+    graphJSON10 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON10
 
 @app.route('/senti')
 def main():

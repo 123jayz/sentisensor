@@ -20,16 +20,72 @@
 
 <body style="font-family:arial, sans-serif">
     <h1>1952-2007年的各国GDP可视化</h1>
-    <h2>输入国家如：India或China（大写字母开头）</h2>
     
     <input type="text" id="fname" name="fname" onchange="cb(this.value)">
     <div id="chart" class="chart"></div>
+    <div id="chart1" class="chart1"></div>
+    <div id="chart2" class="chart2"></div>
+    <div id="chart3" class="chart3"></div>
+    <div id="chart4" class="chart4"></div>
+    <div id="chart5" class="chart5"></div>
+    <div id="chart6" class="chart6"></div>
+    <div id="chart7" class="chart7"></div>
+    <div id="chart8" class="chart8"></div>
+    <div id="chart9" class="chart9"></div>
+    <div id="chart10" class="chart10"></div>
 </body>
 
 <script>
     d = {{ graphJSON | safe }};
     Plotly.newPlot('chart', d, {});
 </script>
+<script>
+    d1 = {{ graphJSON1 | safe }};
+    Plotly.newPlot('chart1', d1, {});
+</script>
 
+<script>
+    d2= {{ graphJSON2 | safe }};
+    Plotly.newPlot('chart2', d2, {});
+</script>
 
+<script>
+    d3 = {{ graphJSON3 | safe }};
+    Plotly.newPlot('chart3', d3, {});
+</script>
+
+<script>
+    d4 = {{ graphJSON4 | safe }};
+    Plotly.newPlot('chart4', d4, {});
+</script>
+
+<script>
+    d5 = {{ graphJSON5 | safe }};
+    Plotly.newPlot('chart5', d5, {});
+</script>
+
+<script>
+    d6 = {{ graphJSON6 | safe }};
+    Plotly.newPlot('chart6', d6, {});
+</script>
+
+<script>
+    d7 = {{ graphJSON7 | safe }};
+    Plotly.newPlot('chart7', d7, {});
+</script>
+
+<script>
+    d8 = {{ graphJSON8 | safe }};
+    Plotly.newPlot('chart8', d8, {});
+</script>
+
+<script>
+    d9 = {{ graphJSON9 | safe }};
+    Plotly.newPlot('chart9', d9, {});
+</script>
+
+<script>
+    d10 = {{ graphJSON10 | safe }};
+    Plotly.newPlot('chart10', d10, {});
+</script>
 </html>
